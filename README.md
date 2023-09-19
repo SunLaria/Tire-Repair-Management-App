@@ -1,4 +1,4 @@
-# Tire-Repair-Shop
+# Tire-Repair-Management-App
 
 Need to install Marshmallow library before running app.py in flask.
 Used Marshmallow for paramters validations:
