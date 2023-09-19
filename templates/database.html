@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="padding:20px; width:50vw; height:25vw">
+<h2 style="margin-top: 0px;">Search Results:</h2>
+{% if database|length >= 1 %}
+<div class = "list">
+    <form action="/chosen_car">
+        <table>
+            <tr>
+                <th>
+                    v
+                </th>
+                <th>
+                    Number Plate
+                </th>
+                <th>
+                    Holder Name
+                </th>
+                <th>
+                    Manufacture
+                </th>
+                <th>
+                    Model
+                </th>
+                <th>
+                    Year
+                </th>
+                <th>
+                    Last Entrance
+                </th>
+            </tr>
+            {% for number in range(database|length) %}
+            <tr class="car_row">
+                <td>
+                    <input type="radio" name="chosen_car" id="{{ number }}"">
+                </td>
+                <td>
+                    {{ database[number].numberplate }}
+                </td>
+                <td>
+                    {{ database[number].holdername }}
+                </td>
+                <td>
+                    {{ database[number].manufacture }}
+                </td>
+                <td>
+                    {{ database[number].model }}
+                </td>
+                <td>
+                    {{ database[number].year }}
+                </td>
+                <td>
+                    {{ database[number].last_entrance }}
+                </td>
+                    </tr>
+            {% endfor %}
+        </table>
+    </form>
+</div>
+{% else %}
+    <h3>Nothing Found...</h3>
+{% endif %}
+<div style="position: absolute; top:50vh">
+    <button id="car_info">More Info</button>
+    <button id="car_delete">Delete</button>
+</div>
+</div>
+<script>
+
+var elements = document.getElementsByClassName('car_row');
+for (var i = 0; i < elements.length; i++) {
+
+    (elements)[i].addEventListener("click",function() {
+        const rb = this.querySelector('input[name="chosen_car"]');
+        rb.checked = true;
+    });
+}
+
+let button_car_info = document.getElementById("car_info");
+    button_car_info.addEventListener("click",function() {
+        let radio = document.querySelector('input[name="chosen_car"]:checked')
+        if (Number(radio.id) != NaN) {
+            window.location.href = '/car_info?chosen_car='+radio.id
+        }
+    }
+    )
+
+let button_car_delete = document.getElementById("car_delete");
+    button_car_delete.addEventListener("click",function() {
+        let radio = document.querySelector('input[name="chosen_car"]:checked')
+        if (Number(radio.id) != NaN) {
+            if (window.confirm("Are You Sure You Want To Delete?")){
+                window.location.href = '/car_delete?chosen_car='+radio.id
+            }   
+        }
+    }
+    )
+
+
+</script>
+{% endblock %}

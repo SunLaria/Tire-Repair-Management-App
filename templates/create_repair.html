@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="padding:15px; width:50vw; height:27vw; display:flex; flex-direction:column;">
+    <form action="/car_repair" method="POST" class="create_form">
+        <h2 style="margin-top: 0px;"">Create Repair:</h2>
+        <table>
+            <tr>
+                <td>
+                    <div>Date: </div>
+                </td>
+                <td>
+                    <input type="date" name="date" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>Mechanic Name: </div>
+                </td>
+                <td>
+                    <input type="text" name="mechanic_name" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>Number Of Tires: </div>
+                </td>
+                <td>
+                    <input type="number" name="number_of_tires" max="4" min="1">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>Start Time: </div>
+                </td>
+                <td>
+                    <input type="time" name="start_time" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>End Time: </div>
+                </td>
+                <td>
+                    <input type="time" name="end_time" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>Price: </div>
+                </td>
+                <td>
+                    <input type="text" name="price" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>Notes: </div>
+                </td>
+                <td>
+                    <input type="text" name="notes">
+                </td>
+            </tr>
+        </table>
+        <div class="create_status" style="position: absolute; bottom:2vh; left:36.3vw">
+            {% if status=="1" %}
+                Repair Submitted
+            {% elif status=="2" %}
+                Error
+            {% endif %}
+        </div>
+        <input type="submit" value="Create Repair!" class="submit" id="create_submit" style="cursor: pointer;">
+        <input type="button" value="Back" id="back_button" class="submit" style="cursor: pointer;position:absolute; left:37.6vw; bottom:15vh">
+    </form>
+    </div>
+<script>
+    function get_chosen_car(){
+
+        if (window.location.search.split("=")[1] == 2){
+            return window.location.search.split("=")[1]
+        }
+        else{
+            return window.location.search.split("=")[1].split("&")[0]
+        }
+    }
+
+    let button_car_back = document.getElementById("back_button");
+    button_car_back.addEventListener("click",function() {
+        window.location.href = '/car_info?chosen_car='+get_chosen_car();
+    }
+    )
+</script>
+{% endblock %}

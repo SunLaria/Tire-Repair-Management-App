@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="search">
+    <div style="margin-top: 25px;">Number Plate:</div>
+    <form action="/search" class="form">
+        <input type="text" name="q" id="search_bar">
+        <input type="submit" value="Search!" class="submit">
+    </form>
+</div>
+{% endblock %}

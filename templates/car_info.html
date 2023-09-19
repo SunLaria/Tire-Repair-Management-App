@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="padding:15px; width:50vw; height:25vw; display:flex; flex-direction:column;">
+    <h2 style="margin-top: 0px;">Car Info:</h2>
+    <div>
+    <table class="car_info_list">
+        <tr>
+            <td>
+                <div>Holder Name: </div>
+            </td>
+            <td>
+                <div>{{ carinfo.holdername }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>Number Plate: </div>
+            </td>
+            <td>
+                <div>{{ carinfo.numberplate }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>Manufacture: </div>
+            </td>
+            <td>
+                <div>{{ carinfo.manufacture }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>Model: </div>
+            </td>
+            <td>
+                <div>{{ carinfo.model }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>Year: </div>
+            </td>
+            <td>
+                <div>{{ carinfo.year }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>Color: </div>
+            </td>
+            <td>
+                <div>{{ carinfo.color }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>Tire Size: </div>
+            </td>
+            <td>
+                <div>{{ carinfo.tire_size }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>First Entrance: </div>
+            </td>
+            <td>
+                <div>{{ carinfo.first_entrance }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>Last Entrance: </div>
+            </td>
+            <td>
+                <div>{{ carinfo.last_entrance }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>Number Of Repairs: </div>
+            </td>
+            <td>
+                <div>{{ carinfo.repair_history|length }}</div>
+            </td>
+        </tr>
+    </table>
+</div>
+</div>
+<div style="position: absolute; left:38vw; top:10vh; display:flex; flex-direction:column;">
+    <button id="car_update">Update</button>
+    <button id="car_history">History</button>
+    <button id="car_delete">Delete</button>
+</div>
+<div style="position: absolute; left:38.2vw; top:45vh;"">
+    <button id="car_repair">Repair</button>
+</div>
+
+<script>
+
+    function get_chosen_car(){
+
+        if (window.location.search.split("=")[1] == 2){
+            return window.location.search.split("=")[1]
+        }
+        else{
+            return window.location.search.split("=")[1].split("&")[0]
+        }
+    }
+    let button_car_update = document.getElementById("car_update");
+    button_car_update.addEventListener("click",function() {
+        window.location.href = '/car_update?chosen_car='+get_chosen_car();
+    }
+    )
+
+    let button_car_history = document.getElementById("car_history");
+    button_car_history.addEventListener("click",function() {
+        window.location.href = '/car_history?chosen_car='+get_chosen_car();
+    }
+    )
+
+    let button_car_delete = document.getElementById("car_delete");
+    button_car_delete.addEventListener("click",function() {
+            if (window.confirm("Are You Sure You Want To Delete?")){
+                window.location.href = '/car_delete?chosen_car='+get_chosen_car()
+            }   
+        }
+    )
+
+
+
+    let button_car_repair = document.getElementById("car_repair");
+    button_car_repair.addEventListener("click",function() {
+        window.location.href = '/car_repair?chosen_car='+get_chosen_car();
+    }
+    )
+
+
+</script>
+{% endblock %}

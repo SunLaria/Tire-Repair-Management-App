@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="padding:20px; width:50vw; height:25vw">
+    <h2 style="margin-top: 0px;">Repair History:</h2>
+    {% if car_history|length >= 1 %}
+    <div class = "list">
+            <table>
+                <tr>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Number Of Tires
+                    </th>
+                    <th>
+                        Mechanic Name
+                    </th>
+                    <th>
+                        Start Time
+                    </th>
+                    <th>
+                        End Time
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Notes
+                    </th>
+                </tr>
+                {% for number in range(car_history|length) %}
+                <tr class="car_row">
+                        <td>
+                            {{ car_history[number].date }}
+                        </td>
+                        <td>
+                            {{ car_history[number].number_of_tires }}
+                        </td>
+                        <td>
+                            {{ car_history[number].mechanic_name }}
+                        </td>
+                        <td>
+                            {{ car_history[number].start_time }}
+                        </td>
+                        <td>
+                            {{ car_history[number].end_time }}
+                        </td>
+                        <td>
+                            {{ car_history[number].price }}
+                        </td>
+                        <td>
+                            {{ car_history[number].notes }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+    </div>
+    {% else %}
+        <h3>Nothing Found...</h3>
+    {% endif %}
+    <input type="button" value="Back" id="back_button" class="submit" style="position: absolute; top:50vh"">
+    </div>
+    <script>
+        function get_chosen_car(){
+    
+            if (window.location.search.split("=")[1] == 2){
+                return window.location.search.split("=")[1]
+            }
+            else{
+                return window.location.search.split("=")[1].split("&")[0]
+            }
+        }
+    
+        let button_car_update = document.getElementById("back_button");
+        button_car_update.addEventListener("click",function() {
+            window.location.href = '/car_info?chosen_car='+get_chosen_car();
+        }
+        )
+    </script>
+{% endblock %}

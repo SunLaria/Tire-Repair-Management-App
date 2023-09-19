@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="padding:15px; width:50vw; height:27vw; display:flex; flex-direction:column;">
+<form action="/car_update" method="POST" class="create_form">
+    <h2 style="margin-top: 0px;"">Update Car:</h2>
+    <table>
+        <tr>
+            <td>
+                <div>Holder Name:</div>
+            </td>
+            <td>
+                <input type="text" name="holdername" value="{{ car.holdername }}" required>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>Number Plate:</div>
+            </td>
+            <td>
+                <input type="text" name="numberplate" value="{{ car.numberplate }}" required>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>Manufacture: </div>
+            </td>
+            <td>
+                <input type="text" name="manufacture" value="{{ car.manufacture }}" required>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>Model: </div>
+            </td>
+            <td>
+                <input type="text" name="model" value="{{ car.model }}" required>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>Year: </div>
+            </td>
+            <td>
+                <input type="number" placeholder="YYYY" max="2024" min="1900" name="year" style="width: 70px;" value="{{ car.year }}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>Color: </div>
+            </td>
+            <td>
+                <input type="text" name="color" value="{{ car.color }}" required>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>Tire Size: </div>
+            </td>
+            <td>
+                <input type="text" name="tire_size" value="{{ car.tire_size }}" required>
+            </td>
+        </tr>
+    </table>
+    <div class="create_status">
+        {% if status=="1" %}
+            Saved Succsessfully
+        {% elif status=="2" %}
+            Error
+        {% endif %}
+    </div>
+
+    <input type="submit" value="Save!" class="submit" id="create_submit" style="position: absolute; left:36.5vw">
+    <input type="button" value="Back" id="back_button" class="submit" style="cursor: pointer;position:absolute; left:36.7vw; bottom:15vh">
+</form>
+</div>
+<script>
+    function get_chosen_car(){
+
+        if (window.location.search.split("=")[1] == 2){
+            return window.location.search.split("=")[1]
+        }
+        else{
+            return window.location.search.split("=")[1].split("&")[0]
+        }
+    }
+
+    let button_car_update = document.getElementById("back_button");
+    button_car_update.addEventListener("click",function() {
+        window.location.href = '/car_info?chosen_car='+get_chosen_car();
+    }
+    )
+</script>
+{% endblock %}
